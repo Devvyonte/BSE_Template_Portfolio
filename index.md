@@ -56,7 +56,7 @@ For your first milestone, describe what your project is and how you plan to buil
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qjpavTqujpw?si=7UYwX531yStZ8S3u" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-The starter project I choose was the BlueStamp Arduino Starter, which allows you to utilize and customly build a Arduino. The Arduino is able to take both inputs in this case I chose a PIR sensor and a output which fed into my computer. To fully empoly the Arduino, I sent the code to the module via the Arduino code editor which would be able to check whether the required input was given and display the respective text in my terminal. If the sensor identified motion, it would send inputs through the if statements I set up with a infinite loop to constantly check incoming data values and then display the result of motion detected in the console. If there was no more motion, it would check against the if statements to return with the statement of motion ended in the console. During this process, it was difficult to get the result I wanted to achieve. Though sometimes it would give me a result, it was far too delayed to be a compatible solution. Thus I tried to re-wire and re-attach new PIR sensors to attempt to get the Arduino to produce a result I wanted. After many trials of replacing my code, wires, and PIR sensor I found the solution to be a specfic PIR sensor that would allow me to adjust the delay of refreshing inputs and the sensitivity of the sensor. This ultimately solved my problem and allowed me to produce a decent result although with minor delay. Learning how to work with the Arduino and how to solder was challenging, however ultimately was worth the effort put in. 
+The starter project I chose was the BlueStamp Arduino Starter, which allows you to utilize and custom-build an Arduino. The Arduino can take both inputs in this case I chose a PIR sensor and an output which fed into my computer. To fully employ the Arduino, I sent the code to the module via the Arduino code editor which would be able to check whether the required input was given and display the respective text in my terminal. If the sensor identified motion, it would send inputs through the if statements I set up with an infinite loop to constantly check incoming data values and then display the result of motion detected in the console. If there was no more motion, it would check against the if statements to return with the statement of motion ending in the console. During this process, it was difficult to get the result I wanted to achieve. Though sometimes it would give me a result, it was far too delayed to be a compatible solution. Thus I tried to re-wire and re-attach new PIR sensors to attempt to get the Arduino to produce the result I wanted. After many trials of replacing my code, wires, and PIR sensor I found the solution to be a specific PIR sensor that would allow me to adjust the delay of refreshing inputs and the sensitivity of the sensor. This ultimately solved my problem and allowed me to produce a decent result although with minor delay. Learning how to work with the Arduino and how to solder was challenging, however, ultimately was worth the effort put in. 
 
 # Schematics 
 <img src="arduino thingy.png" alt="Arduino schematic">
@@ -64,36 +64,37 @@ The starter project I choose was the BlueStamp Arduino Starter, which allows you
 # Code for Arduino Starter
 
 ```c++
-int led = 13;                // the pin that the LED is atteched to
-int sensor = 2;              // the pin that the sensor is atteched to
-int state = LOW;             // by default, no motion detected
-int val = 0;                 // variable to store the sensor status (value)
+int led = 13;                // LED pin
+int sensor = 2;              // PIR sensor pin
+int state = LOW;             // default no motion detected
+int val = 0;                 // sensor status, HIGH = on, LOW = off
 
 void setup() {
-  pinMode(led, OUTPUT);      // initalize LED as an output
-  pinMode(sensor, INPUT);    // initialize sensor as an input
-  Serial.begin(9600);        // initialize serial
+  pinMode(led, OUTPUT);      // initalize LED
+  pinMode(sensor, INPUT);    // initialize sensor
+  Serial.begin(9600);        
 }
 
 void loop(){
-  val = digitalRead(sensor);   // read sensor value
-  if (val == HIGH) {           // check if the sensor is HIGH
-    digitalWrite(led, HIGH);   // turn LED ON
+  val = digitalRead(sensor);   
+  if (val == HIGH) {           
+    digitalWrite(led, HIGH);   
     
     if (state == LOW) {
-      state = HIGH;       // update variable state to HIGH
+      state = HIGH;       
       Serial.println("Motion detected!"); 
     }
   } 
   else {
-      digitalWrite(led, LOW); // turn LED OFF
+      digitalWrite(led, LOW); 
       
       if (state == HIGH){
-        state = LOW;       // update variable state to LOW
+        state = LOW;       
         Serial.println("Motion stopped!");
     }
   }
 }
+//Credits: https://projecthub.arduino.cc/electronicsfan123/interfacing-arduino-uno-with-pir-motion-sensor-593b6b
 ```
 
 # Code for Smile Recognition wth Python
