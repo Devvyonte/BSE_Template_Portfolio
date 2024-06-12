@@ -97,11 +97,11 @@ void loop(){
 ```
 
 # Code for Smile Recognition wth Python
-
+<!---
 ```c++
   thingy
 ```
-
+--->
 # Bill of Materials
 
 | **Part** | **Note** | **Price** | **Link** |
