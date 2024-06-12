@@ -62,7 +62,7 @@ The starter project I choose was the BlueStamp Arduino Starter, which allows you
 # Schematics 
 <img src="arduino thingy.png" alt="Arduino schematic">
 
-# Code
+# Code for Arduino Starter
 
 ```c++
 int led = 13;                // the pin that the LED is atteched to
@@ -95,6 +95,12 @@ void loop(){
     }
   }
 }
+```
+
+# Code for Smile Recognition wth Python
+
+```c++
+  thingy
 ```
 
 # Bill of Materials
