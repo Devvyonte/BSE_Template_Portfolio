@@ -9,7 +9,7 @@ You should comment out all portions of your portfolio that you have not complete
 |:--:|:--:|:--:|:--:|
 | Ryan D | Wilcox High School | Computer Science | Incoming Junior |
 
-<img src="images/Ryan.HEIC" alt="Headstone Image">
+<img src="images/Ryan.HEIC" width="300" height="200" alt="Headstone Image">
 
 <!--
 # Final Milestone
