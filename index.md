@@ -91,9 +91,9 @@ void loop(){
 }
 //Credits: https://projecthub.arduino.cc/electronicsfan123/interfacing-arduino-uno-with-pir-motion-sensor-593b6b
 ```
-
-# Code for Smile Recognition wth Python
 <!---
+# Code for Smile Recognition wth Python
+
 ```c++
   thingy
 ```
