@@ -23,7 +23,7 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 # Second Milestone
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V6mb41Rkjic?si=CWE8ydTZMPsTPr9p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Summary
   During this milestone, I was able to finish up, modify, and clean up my code. I made the program identify the face, and then identify whether they are smiling or not currently with displayed text as output. I also changed the boxes to match the status in color, so red for not smiling and green for smiling. Though not the most accurate, it works with decent efficiency and returns an acceptable output. However, I had to restart all my progress at some point since my SD card was fried. I installed 64-bit Raspbian (Raspberry Pi OS) this time and installed the software needed along with recording what I lost. After that, I also tried changing the aspect ratio of the output to a larger window, but it would not work since the Raspberry Pi's graphical power could not handle above 480p. 
