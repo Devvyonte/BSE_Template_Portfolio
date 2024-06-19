@@ -40,7 +40,6 @@ So after that, I had to restart all my progress in downloading the firmware and 
   My next step is to finalize the improvements in my code to make it more accurate and more efficient if possible with OpenCV configurations. I also plan to CAD and assemble a Pi Camera Stand so that my camera does not need a human hand to hold it anymore. I will most likely first print out prototypes and then finely refine the design to work for my purposes.  
 
 ## Code for Second Milestone
-
 ```python
 import cv2;
 from picamera2 import Picamera2;
@@ -50,7 +49,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontal
 smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_smile.xml')
 
 
-picam2 = Picamera2()                                                                                                                                                                                 
+picam2 = Picamera2()                                     
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
 picam2.start()
 
@@ -76,13 +75,10 @@ while True:
                cv2.putText(frame, "Not Smiling", (x + 45, y - 30), cv2.FONT_HERSHEY_DUPLEX, 1.25, (0, 0, 255), 1, cv2.LINE_AA)
                cv2.rectangle(roi_color, (sx, sy), ((sx + sw), (sy + sh)), (0, 0, 255), 2)
 
-
    cv2.imshow('Video', frame)
-
 
    if cv2.waitKey(1) & 0xff == ord('q'):
        break
-
 
 picam2.stop()               
 cv2.destroyAllWindows()
@@ -117,6 +113,45 @@ cv2.destroyAllWindows()
 
 ## Next Step
   My next step is to start working on my main project, Smile Recognition with OpenCV. I plan to install Raspbian (Raspberry Pi OS) and the respective software needed to start working on my code and testing of the code. 
+
+## Code for First Milestone
+```python
+import cv2;
+from picamera2 import Picamera2;
+
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontalface_default.xml')
+smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_smile.xml')
+
+
+picam2 = Picamera2()                                            
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+def detect(gray, frame): 
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5) 
+    for (x, y, w, h) in faces: 
+        cv2.rectangle(frame, (x, y), ((x + w), (y + h)), (255, 0, 0), 2) 
+        roi_gray = gray[y:y + h, x:x + w] 
+        roi_color = frame[y:y + h, x:x + w] 
+        smiles = smile_cascade.detectMultiScale(roi_gray, 1.8, 20) 
+  
+        for (sx, sy, sw, sh) in smiles: 
+            cv2.rectangle(roi_color, (sx, sy), ((sx + sw), (sy + sh)), (0, 0, 255), 2) 
+    return frame 
+
+while True:
+   frame = picam2.capture_array()
+   gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+   faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+   cv2.imshow('Video', frame)
+
+   if cv2.waitKey(1) & 0xff == ord('q'):
+       break
+
+picam2.stop()               
+cv2.destroyAllWindows()
+```
 
 ## Schematics 
 <img src="images/arduino_thingy.png" alt="Arduino schematic">
