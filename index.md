@@ -1,9 +1,5 @@
 # Smile Detection Project
-<!--
-Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails!
-
-You should comment out all portions of your portfolio that you have not completed yet, as well as any instructions:
--->
+Smile Recognition with Python is a program that uses the OpenCV AI library to detect faces that are smiling or not smiling by turning the frames of the video feed into monochrome, to compare against the haarcascade models of data to produce an output which is displayed with text and rectangles highlighting the person. This utilizes a Raspberry Pi as the computing power to calculate the program and produce its return. 
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
