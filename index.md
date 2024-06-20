@@ -1,5 +1,5 @@
 # Smile Detection Project
-Smile Recognition with Python is a program that uses the OpenCV AI library to detect faces that are smiling or not smiling by turning the frames of the video feed into monochrome, to compare against the haarcascade models of data to produce an output which is displayed with text and rectangles highlighting the person. This utilizes a Raspberry Pi as the computing power to calculate the program and produce its return. 
+Smile Recognition with Python is a program that uses the OpenCV computer vision library to detect faces that are smiling or not smiling by turning the frames of the video feed into monochrome, to compare against the haarcascade models of data to produce an output which is displayed with text and rectangles highlighting the person. This utilizes a Raspberry Pi as the computing power to calculate the program and produce its return. 
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
