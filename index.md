@@ -37,16 +37,20 @@ So after that, I had to restart all my progress in downloading the firmware and 
 
 ## Code for Second Milestone
 ```python
+# importing the OpenCV library & Picamera libraries
 import cv2;
 from picamera2 import Picamera2;
 
+# defining the haarcascades and it's file path for the IDE to access it
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_smile.xml')
 
+# starting up the Picamera and configuring it
 picam2 = Picamera2()                                     
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
 picam2.start()
 
+#loops the function of comparing the grayscale frames of the live feed to the haarcascade data models and breaks the loop when the user presses the "q" key
 while True:
    frame = picam2.capture_array()
    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -71,7 +75,8 @@ while True:
    if cv2.waitKey(1) & 0xff == ord('q'):
        break
 
-picam2.stop()               
+# after the loop is broken the program moves on to stopping the Pi Camera and removing the preview window
+picam2.stop()
 cv2.destroyAllWindows()
 ```
 
@@ -94,16 +99,20 @@ cv2.destroyAllWindows()
 
 ## Code for First Milestone
 ```python
+# importing the OpenCV library & Picamera libraries
 import cv2;
 from picamera2 import Picamera2;
 
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontalface_default.xml')
+# defining the haarcascades and it's file path for the IDE to access it
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontalface_default.xml') 
 smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_smile.xml')
 
+# starting up the Picamera and configuring it
 picam2 = Picamera2()                                            
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
 picam2.start()
 
+# defining a function which detects the user smiling on the screen by comparing the grayscale inputed frames to the haarcascade data models
 def detect(gray, frame): 
     faces = face_cascade.detectMultiScale(gray, 1.3, 5) 
     for (x, y, w, h) in faces: 
@@ -116,16 +125,18 @@ def detect(gray, frame):
             cv2.rectangle(roi_color, (sx, sy), ((sx + sw), (sy + sh)), (0, 0, 255), 2) 
     return frame 
 
+# loops the function which creates the window preview and breaks the loop when the user presses the "q" key
 while True:
    frame = picam2.capture_array()
    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-   cv2.imshow('Video', frame)
+   canvas = detect(gray, frame)
+   cv2.imshow('Video', canvas)  
 
    if cv2.waitKey(1) & 0xff == ord('q'):
        break
 
-picam2.stop()               
+# after the loop is broken the program moves on to stopping the Pi Camera and removing the preview window
+picam2.stop()
 cv2.destroyAllWindows()
 ```
 
