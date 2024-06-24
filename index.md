@@ -156,7 +156,7 @@ cv2.destroyAllWindows()
   My next step is to start working on my main project, Smile Recognition with OpenCV. I plan to install Raspbian (Raspberry Pi OS) and the respective software needed to start working on my code and testing of the code. 
 
 ## Schematics for the Arduino Starter Project
-<img src="images/arduino_thingy.png" alt="Arduino Schematic">
+<img src="images/Arduino_Schematic.png" alt="Arduino Schematic">
 
 ## Code for Arduino Starter
 
