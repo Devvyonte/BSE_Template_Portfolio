@@ -21,7 +21,7 @@ One of the challenges I faced during this milestone was achieving the right resu
 My next step is to first brainstorm my modification and then fully complete it. Although I have a few ideas on modifications, I most likely will modify my program to automatically capture a photo when the user is detected to be smiling. From there, I may add more modifications that I see fit or one that may add more depth to the alteration. 
 
 ## Schematics for the Pi Camera Stand
-<img src="images/PiCamStandSchematic" alt="Pi Camera Stand Schematic">
+<img src="images/PiCamStandSchematic" height="500" alt="Pi Camera Stand Schematic">
 
 # Second Milestone
 
