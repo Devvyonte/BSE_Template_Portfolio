@@ -7,19 +7,21 @@ Smile Recognition with Python is a program that uses the OpenCV computer vision 
 
 <img src="images/Ryan.jpg" height="500" alt="Headstone Image">
 
-<!--
-# Final Milestone
-
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
+# Third Milestone
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For your final milestone, explain the outcome of your project. Key details to include are:
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after everything you've learned at BSE
--->
+## Summary
+In my third milestone, I custom CAD'ed a Pi Camera stand using TinkerCAD as well as cleaning up and making sure that my final code is efficient. I made sure that my code looked clean and would run in the shortest amount of time with the least amount of resources wasted. I also spent time ensuring that my camera stand would pair with not only my Raspberry Pi case but additionally the back plate of the Pi Camera which was difficult to fit. 
+
+## Challenges
+One of the challenges I faced during this milestone was achieving the right results with the 3D printer. I wanted to print out a Pi camera stand that would fit the alignment of my Raspberry Pi case, but also the Pi camera dimensions. Even though I correctly measured everything out when I created the 3D model of the stand in the online CAD software TinkerCAD, the 3D printer was never able to perfectly get the dimensions of the parts I needed. Therefore, the process of creating the stand required much trial and error to achieve a reasonable result. At first, I wanted to use screws to mount the Pi camera to the stand, but I realized later that I would never be able to print such exact models with the 3D printers. So, I had to scrap that idea and use adhesives to attach the Pi camera. Though I believe that the process itself was somewhat difficult, the thought process of brainstorming beforehand proved to be a lot more challenging. This was because I wanted the stand to mount very close to the Raspberry Pi case. As a cause of that, I decided to make the stand attachable to the sides of the Raspberry Pi case with two blocks at the bottom of my stand which would squeeze one of the Raspberry Pi case's walls in between to stabilize the mount. 
+
+## Next step
+My next step is to first brainstorm my modification and then fully complete it. Although I have a few ideas on modifications, I most likely will modify my program to automatically capture a photo when the user is detected to be smiling. From there, I may add more modifications that I see fit or one that may add more depth to the alteration. 
+
+## Schematics for the Pi Camera Stand
+<img src="images/arduino_thingy.png" alt="Pi Camera Stand Schematic">
 
 # Second Milestone
 
@@ -153,8 +155,8 @@ cv2.destroyAllWindows()
 ## Next Step
   My next step is to start working on my main project, Smile Recognition with OpenCV. I plan to install Raspbian (Raspberry Pi OS) and the respective software needed to start working on my code and testing of the code. 
 
-## Schematics 
-<img src="images/arduino_thingy.png" alt="Arduino schematic">
+## Schematics for the Arduino Starter Project
+<img src="images/arduino_thingy.png" alt="Arduino Schematic">
 
 ## Code for Arduino Starter
 
