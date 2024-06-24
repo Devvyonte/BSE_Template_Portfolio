@@ -9,7 +9,7 @@ Smile Recognition with Python is a program that uses the OpenCV computer vision 
 
 # Third Milestone
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zquCfsTlbjA?si=9S-H9eMII4AWTtvV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Summary
 In my third milestone, I custom CAD'ed a Pi Camera stand using TinkerCAD as well as cleaning up and making sure that my final code is efficient. I made sure that my code looked clean and would run in the shortest amount of time with the least amount of resources wasted. I also spent time ensuring that my camera stand would pair with not only my Raspberry Pi case but additionally the back plate of the Pi Camera which was difficult to fit. 
