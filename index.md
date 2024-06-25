@@ -80,6 +80,10 @@ while True:
 # after the loop is broken the program moves on to stopping the Pi Camera and removing the preview window
 picam2.stop()
 cv2.destroyAllWindows()
+
+# helpful documentations/tutorials:
+# https://www.geeksforgeeks.org/python-smile-detection-using-opencv/
+# https://github.com/raspberrypi/picamera2/tree/main/examples
 ```
 
 # First Milestone
@@ -140,6 +144,10 @@ while True:
 # after the loop is broken the program moves on to stopping the Pi Camera and removing the preview window
 picam2.stop()
 cv2.destroyAllWindows()
+
+# helpful documentations/tutorials:
+# https://www.geeksforgeeks.org/python-smile-detection-using-opencv/
+# https://github.com/raspberrypi/picamera2/tree/main/examples
 ```
 
 # Starter Project
