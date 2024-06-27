@@ -9,16 +9,23 @@ Smile Recognition with Python is a program that uses the OpenCV computer vision 
 
 # Fourth Milestone (Modification)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zquCfsTlbjA?si=9S-H9eMII4AWTtvV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/S2oVig7070k?si=oiiIeNdoWCHKKNWS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Summary
-  
+  During this final milestone, the essence of my modification was to create a program that would automatically take photos of the user smiling, and then upload it to a cloud server so the user could access it later. Though I ran through some small trouble, I was able to get the Google Drive API to work with my code so that I could upload the photos taken to the Google Drive folder. I made sure that the program was configurable so that the user would be able to turn on or off the automatic capture feature and change the delay between photos. I utilized both the Google Cloud along with a service account to be able to upload my images to the Google Drive Folder. Additionally, I custom CAD'ed a Raspberry Pi Cover for my case so that the Pi Camera could fit inside looking aesthetic and not in the way with its cable out. 
 
 ## Challenges
-  
+### First Challenge
+  The main challenges of this milestone were first, being able to get the proper measurements of the Pi Camera and the Raspberry Pi Case so that I could CAD a cover for it that would fit and work well. After around 5 tries of testing different values since my measurements seemed to be off, I was able to get a design that would work well and look nice. This did take quite the time to do though, since each print took around 3 hours to fully print out. Therefore I had to wait around 21 hours in total since I printed out the final version twice more for minor adjustments. 
+
+### Second Challenge
+  The second major challenge was the more difficult and tedious one, which would be the addition of the automatic capture feature with the pictures taken uploaded to a cloud server for the user to view later on. Due to my lack of experience in the area, it was difficult to figure out the steps needed to set up the program. In addition, I needed to pick out one service to use out of the many out there, without any knowledge of which one was suited for my needs. After I chose to use Google Drive as my hosting service, I had to figure out how to use it. By going through many tutorials and trying to debug my code, I was able to get it to work with a Google Cloud service account, which uploaded the photos through my code to the folder. However, the code I wrote was only to upload images, not the full script which would take the photos as well. Therefore I had to integrate my original code of identifying smiles, but slightly modified it into the code I just wrote which would complete the automatic function of the program. With a few bug fixes I was able to get it up and running but it wasn't the most efficient. After I cleaned it up a little so that it would work well to some degree.
 
 ## Next Step
-  
+  My next step is to clean and modify my code so that no unnecessary chunks are present to make sure that my code is running efficiently and fast enough for my slow Raspberry Pi processor to compute. Overall, my project is finished and I am quite proud of the well-working device that I made myself. 
+
+## Takeaways
+I enjoyed the experience of this camp. For me, this was something new and unexpected, as I had never done anything with engineering before. Learning how to use an Arduino and Raspberry Pi for the first time was difficult, but quite worth the journey. I feel that I have learned a lot from this camp, and not just about technical abilities like how to build and set up hardware. Writing in my portfolio, and daily notebooks, and talking to my classmates taught me how to voice myself and more importantly how to document my thoughts. I will admit, at first I thought most of the instructors were pretty much useless, as I could figure out most problems by myself and they usually did not know the exact answer as well. However, later on, I realized that they were a lot more helpful than I originally thought, helping me out with problem-solving some issues that were incredibly difficult to complete. They were also very good company and helped make the camp a more enjoyable experience, even when I was facing issues. I definitely will pursue more engineering projects and ideas in the future because of this camp. So I want to say thanks to all the instructors for not only aiding me but making my time here at the camp feel golden, the camp director for helping me figure situations out when I was stuck, and my classmates who livened the experience through my countless interactions with them. 
 
 ## Code for Fourth Milestone
 ```python
