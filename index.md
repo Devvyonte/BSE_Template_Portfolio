@@ -7,18 +7,194 @@ Smile Recognition with Python is a program that uses the OpenCV computer vision 
 
 <img src="images/Headshot.jpg" height="550" alt="Headstone Image">
 
+# Fourth Milestone (Modification)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zquCfsTlbjA?si=9S-H9eMII4AWTtvV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Summary
+  
+
+## Challenges
+  
+
+## Next Step
+  
+
+## Code for Fourth Milestone
+```python
+import cv2
+import time
+from picamera2 import Picamera2
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+from googleapiclient.errors import HttpError
+import os
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_smile.xml')
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+automaticCapture = False
+delay = 2
+imgCount = 1
+
+while True:
+   userInput = input("\n\033[1mWould you like to automatically take photos when smiling? Input y/n\033[0m\n").lower()
+   if userInput == "y":
+       automaticCapture = True
+       print("\033[1mAutomatic capture is turned on. Press space to turn on/off\033[0m\n")
+       break
+   elif userInput == "n":
+       print("\033[1mAutomatic capture is turned off. Press space to turn on/off\033[0m\n")
+       break
+   else:
+       print("\033[1mPlease input only y or n\033[0m\n")
+
+while True:
+   if automaticCapture:
+       try:
+           userInput = input("\n\033[1mWhat would you like the delay of automatic capture to be?\033[0m\n")
+           delay = int(userInput)
+           print("\033[1mYour delay is set to:\033[0m", str(delay) + "s")
+           break
+       except ValueError:
+           print("\033[1mPlease input only integers.\033[0m\n")
+   else:
+       break
+
+while True:
+   frame = picam2.capture_array()
+   gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+   faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+   for (x, y, w, h) in faces:
+       cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 255), 2)
+       roi_gray = gray[y:y + h, x:x + w]
+       roi_color = frame[y:y + h, x:x + w]
+       smiles = smile_cascade.detectMultiScale(roi_gray, 1.8, 20)
+
+       for (sx, sy, sw, sh) in smiles:
+           if len(smiles) == 2:
+               cv2.putText(frame, "Smiling", (x + 100, y - 30), cv2.FONT_HERSHEY_DUPLEX, 1.25, (0, 255, 0), 1, cv2.LINE_AA)
+               cv2.rectangle(roi_color, (sx, sy), (sx + sw, sy + sh), (0, 255, 0), 2)
+           else:
+               cv2.putText(frame, "Not Smiling", (x + 45, y - 30), cv2.FONT_HERSHEY_DUPLEX, 1.25, (0, 0, 255), 1, cv2.LINE_AA)
+               cv2.rectangle(roi_color, (sx, sy), (sx + sw, sy + sh), (0, 0, 255), 2)
+
+   cv2.imshow('Video', frame)
+
+   key = cv2.waitKey(1) & 0xff
+   if key == 113:
+       break
+   elif key == 32:
+       automaticCapture = not automaticCapture
+       if automaticCapture:
+           print("\033[1mAutomatic capture turned on.\033[0m\n")
+       else:
+           print("\033[1mAutomatic capture turned off.\033[0m\n")
+
+   if automaticCapture:
+       for (x, y, w, h) in faces:
+           roi_color = frame[y:y + h, x:x + w]
+           smiles = smile_cascade.detectMultiScale(gray[y:y + h, x:x + w], 1.8, 20)
+
+           for (sx, sy, sw, sh) in smiles:
+               if len(smiles) == 2:
+                   cv2.imwrite('images/test_' + str(imgCount) + '.png', picam2.capture_array())
+                   imgCount += 1
+                   print("\033[1mPicture taken\033[0m")
+                   time.sleep(delay)
+
+picam2.stop()
+cv2.destroyAllWindows()
+
+credentials_file = '/home/ryan/Documents/test-427616-c0c324496d6c.json'
+SCOPES = ['https://www.googleapis.com/auth/drive']
+
+def authenticate():
+   credentials = service_account.Credentials.from_service_account_file(credentials_file, scopes=SCOPES)
+   drive_service = build('drive', 'v3', credentials=credentials)
+   return drive_service
+
+def get_folder_id(drive_service, folder_name):
+   page_token = None
+   while True:
+       response = drive_service.files().list(q=f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder'",
+                                             spaces='drive',
+                                             fields='nextPageToken, files(id, name)',
+                                             pageToken=page_token).execute()
+       for file in response.get('files', []):
+           return file.get('id')
+       page_token = response.get('nextPageToken', None)
+       if page_token is None:
+           break
+   return None
+
+def upload_folder_images(drive_service, folder_path, folder_id=None):
+   if not os.path.exists(folder_path) or not os.path.isdir(folder_path):
+       print(f'Folder does not exist or is not a valid directory: {folder_path}')
+       return
+
+   for filename in os.listdir(folder_path):
+       if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
+           image_file = os.path.join(folder_path, filename)
+           file_metadata = {'name': filename}
+           if folder_id:
+               file_metadata['parents'] = [folder_id]
+
+           media = MediaFileUpload(image_file, mimetype='image/jpeg')
+           try:
+               file = drive_service.files().create(body=file_metadata,
+                                                   media_body=media,
+                                                   fields='id').execute()
+               print(f'Uploaded: {filename} (File ID: {file.get("id")})')
+
+           except HttpError as error:
+               print(f'HttpError occurred for {filename}: {error}')
+           except Exception as error:
+               print(f'An error occurred for {filename}: {error}')
+
+def check_folder_exists(folder_path):
+   return os.path.exists(folder_path) and os.path.isdir(folder_path)
+
+if __name__ == '__main__':
+   drive_service = authenticate()
+
+   folder_path = '/home/ryan/Documents/images'
+
+   if check_folder_exists(folder_path):
+       print(f'Folder exists at: {folder_path}')
+   else:
+       print(f'Folder does not exist at: {folder_path}')
+       exit()
+
+   folder_name = "Images"
+
+   folder_id = get_folder_id(drive_service, folder_name)
+
+   if folder_id:
+       upload_folder_images(drive_service, folder_path, folder_id)
+       print("\n\033[1mYou can find your photos here: \033[0m" + "https://drive.google.com/drive/folders/17q5UJjXnvVGpk3GxkltS5TnXHEcqeuL2?usp=sharing")
+   else:
+       print(f'Folder "{folder_name}" not found.')
+```
+
 # Third Milestone
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zquCfsTlbjA?si=9S-H9eMII4AWTtvV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Summary
-In my third milestone, I custom CAD'ed a Pi Camera stand using TinkerCAD as well as cleaning up and making sure that my final code is efficient. I made sure that my code looked clean and would run in the shortest amount of time with the least amount of resources wasted. I also spent time ensuring that my camera stand would pair with not only my Raspberry Pi case but additionally the back plate of the Pi Camera which was difficult to fit. 
+  In my third milestone, I custom CAD'ed a Pi Camera stand using TinkerCAD as well as cleaning up and making sure that my final code is efficient. I made sure that my code looked clean and would run in the shortest amount of time with the least amount of resources wasted. I also spent time ensuring that my camera stand would pair with not only my Raspberry Pi case but additionally the back plate of the Pi Camera which was difficult to fit. 
 
 ## Challenges
-One of the challenges I faced during this milestone was achieving the right results with the 3D printer. I wanted to print out a Pi camera stand that would fit the alignment of my Raspberry Pi case, but also the Pi camera dimensions. Even though I correctly measured everything out when I created the 3D model of the stand in the online CAD software TinkerCAD, the 3D printer was never able to perfectly get the dimensions of the parts I needed. Therefore, the process of creating the stand required much trial and error to achieve a reasonable result. At first, I wanted to use screws to mount the Pi camera to the stand, but I realized later that I would never be able to print such exact models with the 3D printers. So, I had to scrap that idea and use adhesives to attach the Pi camera. Though I believe that the process itself was somewhat difficult, the thought process of brainstorming beforehand proved to be a lot more challenging. This was because I wanted the stand to mount very close to the Raspberry Pi case. As a cause of that, I decided to make the stand attachable to the sides of the Raspberry Pi case with two blocks at the bottom of my stand which would squeeze one of the Raspberry Pi case's walls in between to stabilize the mount. 
+  One of the challenges I faced during this milestone was achieving the right results with the 3D printer. I wanted to print out a Pi camera stand that would fit the alignment of my Raspberry Pi case, but also the Pi camera dimensions. Even though I correctly measured everything out when I created the 3D model of the stand in the online CAD software TinkerCAD, the 3D printer was never able to perfectly get the dimensions of the parts I needed. Therefore, the process of creating the stand required much trial and error to achieve a reasonable result. At first, I wanted to use screws to mount the Pi camera to the stand, but I realized later that I would never be able to print such exact models with the 3D printers. So, I had to scrap that idea and use adhesives to attach the Pi camera. Though I believe that the process itself was somewhat difficult, the thought process of brainstorming beforehand proved to be a lot more challenging. This was because I wanted the stand to mount very close to the Raspberry Pi case. As a cause of that, I decided to make the stand attachable to the sides of the Raspberry Pi case with two blocks at the bottom of my stand which would squeeze one of the Raspberry Pi case's walls in between to stabilize the mount. 
 
 ## Next step
-My next step is to first brainstorm my modification and then fully complete it. Although I have a few ideas on modifications, I most likely will modify my program to automatically capture a photo when the user is detected to be smiling. From there, I may add more modifications that I see fit or one that may add more depth to the alteration. 
+  My next step is to first brainstorm my modification and then fully complete it. Although I have a few ideas on modifications, I most likely will modify my program to automatically capture a photo when the user is detected to be smiling. From there, I may add more modifications that I see fit or one that may add more depth to the alteration. 
 
 ## Schematics for the Pi Camera Stand
 <img src="images/PiCameraStand_Schematic.png" width="1000" alt="Pi Camera Stand Schematic">
