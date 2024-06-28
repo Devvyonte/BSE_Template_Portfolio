@@ -5,7 +5,7 @@ Smile Recognition with Python is a program that uses the OpenCV computer vision 
 |:--:|:--:|:--:|:--:|
 | Ryan D | Wilcox High School | Computer Science | Incoming Junior |
 
-<img src="images/Headshot.jpg" height="550" alt="Headstone Image">
+<img src="images/Ryan_D.png" height="550" alt="Headstone Image">
 
 # Fourth Milestone (Modification)
 
